@@ -45,5 +45,12 @@ public class JogadorResource {
         jogadorService.deletar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
+    
+    @POST
+    @Path("/login")
+    public Response loginDoJogador(@Valid JogadorNovoDTO jogador) {
+        jogadorService.login(jogador);
+        return Response.status(Response.Status.OK).build();
+    }
 
 }
