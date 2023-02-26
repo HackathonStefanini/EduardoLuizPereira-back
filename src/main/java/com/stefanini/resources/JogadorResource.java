@@ -49,7 +49,7 @@ public class JogadorResource {
     @POST
     @Path("/login")
     public Response loginDoJogador(@Valid JogadorNovoDTO jogador) {
-        jogadorService.login(jogador);
+    	jogadorService.login(jogador);
         return Response.status(Response.Status.OK).build();
     }
 
