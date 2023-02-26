@@ -5,11 +5,15 @@ import java.util.Objects;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.core.Response;
 
+import com.stefanini.dto.JogadorNovoDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.exceptions.RegraDeNegocioException;
 import com.stefanini.repository.JogadorRepository;
+
+import java.util.Base64;
 
 @ApplicationScoped
 public class JogadorService {
@@ -17,8 +21,10 @@ public class JogadorService {
 	@Inject
     JogadorRepository jogadorRepository;
 
-    public void salvar(Jogador jogador) {
-        jogadorRepository.save(jogador);
+    public void salvar(JogadorNovoDTO jogador) {
+        Jogador novoJogador = new Jogador(jogador);
+        jogador.setPassword(new String(Base64.getEncoder().encode(jogador.getPassword().getBytes())));
+        jogadorRepository.save(novoJogador);
     }
 
     public Jogador pegarPorId(Long id) {
